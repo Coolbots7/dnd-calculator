@@ -7,10 +7,10 @@
     background-color: $field-color;
     border: 1px solid $border-color;
     border-radius: 0.2rem;
-
-    
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.125);
+    cursor: pointer;
 }
 
-.calculator-button:hover {        
-    background-color: #616161;
+.calculator-button:active {
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.3) inset !important;  
 }
