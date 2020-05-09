@@ -3,10 +3,10 @@ import './Button.scss';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
-    const { text, onClick } = props;
+    const { text, onClick, className, style } = props;
 
     return (
-        <div className="calculator-button d-flex justify-content-center align-items-center" onClick={onClick}>
+        <div className={`calculator-button d-flex justify-content-center align-items-center ${className}`} style={style} onClick={onClick}>
             {text}
         </div>
     )

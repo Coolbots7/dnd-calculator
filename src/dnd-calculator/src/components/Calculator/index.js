@@ -222,7 +222,7 @@ class Calculator extends React.Component {
                     {/* text box */}
                     <TextBox text={expression ? expression : ""} />
                 </div>
-                <div className="row mt-2 d-flex flex-row justify-content-between">
+                <div className="row mt-3 d-flex flex-row justify-content-between">
                     {/* quantity */}
                     <Button text='1' onClick={() => { this.onQuantityButtonClick(1); }} />
                     <Button text='2' onClick={() => { this.onQuantityButtonClick(2); }} />
@@ -233,7 +233,7 @@ class Calculator extends React.Component {
                 <div className="row">
                     {/* dropdown quantity */}
                 </div>
-                <div className="row mt-3 d-flex flex-row justify-content-between">
+                <div className="row mt-4 d-flex flex-row justify-content-between">
                     {/* dice */}
                     <Button text='d4' onClick={() => { this.onDieButtonClick(Die.D4); }} />
                     <Button text='d6' onClick={() => { this.onDieButtonClick(Die.D6); }} />
@@ -246,25 +246,24 @@ class Calculator extends React.Component {
                     <Button text='d20' onClick={() => { this.onDieButtonClick(Die.D20); }} />
                     <Button text='d100' onClick={() => { this.onDieButtonClick(Die.D100); }} />
                 </div>
-                <div className="row mt-3 d-flex flex-row justify-content-around">
+                <div className="row mt-4 d-flex flex-row justify-content-around">
                     {/* modifiers */}
                     <ModifierButton modifier="STR" value="+1" onClick={() => { this.onModifierClick(Modifiers.Strength); }} />
                     <ModifierButton modifier="DEX" value="+2" onClick={() => { this.onModifierClick(Modifiers.Dexterity); }} />
                     <ModifierButton modifier="CON" value="+1" onClick={() => { this.onModifierClick(Modifiers.Constitution); }} />
-                </div>
-                <div className="row mt-2 d-flex flex-row justify-content-around">
-                    {/* modifiers */}
                     <ModifierButton modifier="INT" value="+2" onClick={() => { this.onModifierClick(Modifiers.Intelligence); }} />
                     <ModifierButton modifier="WIS" value="+1" onClick={() => { this.onModifierClick(Modifiers.Wisdom); }} />
-                    <ModifierButton modifier="CHA" value="+1" onClick={() => { this.onModifierClick(Modifiers.Charisma); }} />
                 </div>
                 <div className="row mt-2 d-flex flex-row justify-content-around">
                     {/* modifiers */}
+                    <ModifierButton modifier="CHA" value="+1" onClick={() => { this.onModifierClick(Modifiers.Charisma); }} />
                     <ModifierButton modifier="PRO" value="+2" onClick={() => { this.onModifierClick(Modifiers.Proficiency); }} />
                 </div>
-                <div className="row mt-3 d-flex flex-row justify-content-around">
-                    <Button text="Roll" onClick={() => { this.onRollClick(); }} />
-                    <Button text="Clear" onClick={() => { this.onClearClick(); }} />
+                <div className="row mt-4 d-flex flex-row justify-content-around">
+                    <Button text="Roll" style={{height: '3rem'}} className="w-100" onClick={() => { this.onRollClick(); }} />
+                </div>
+                <div className="row mt-1 d-flex flex-row justify-content-around">
+                    <Button text="Clear" style={{height: '3rem'}} className="w-100" onClick={() => { this.onClearClick(); }} />
                 </div>
 
             </div>
