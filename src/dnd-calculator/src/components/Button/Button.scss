@@ -1,0 +1,16 @@
+@import '../../index.scss';
+
+.calculator-button {
+    width: 4rem;
+    height: 4rem;
+    color: #fff;
+    background-color: $field-color;
+    border: 1px solid $border-color;
+    border-radius: 0.2rem;
+
+    
+}
+
+.calculator-button:hover {        
+    background-color: #616161;
+}

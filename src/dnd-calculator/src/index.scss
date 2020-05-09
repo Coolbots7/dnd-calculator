@@ -1,0 +1,19 @@
+$accent-color: #4ecca3;
+$background-color: #313131;
+$well-color: #525252;
+$field-color: #414141;
+$border-color: #202020;
+
+html,body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: $background-color;
+}
+
+#root {
+    height: 100%;
+}
