@@ -1,0 +1,61 @@
+@import '../../index.scss';
+
+.character {
+    width: 24rem;
+    height: 8rem;
+    color: #fff;
+    background-color: $field-color;    
+    border: 1px solid $border-color;
+    border-radius: 0.2rem;
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.125);
+}
+
+.character-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.character-fab {
+    width: 30px;
+    height: 30px;
+    background-color: #818181; 
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.125);
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    position:absolute;
+    bottom: -10px;
+}
+
+.character-fab:active {
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.3) inset !important;  
+}
+
+.character-edit {
+    left: 65px;
+}
+
+.character-edit svg {
+    margin-top: 6px;
+    margin-left: 2px;
+}
+
+.character-select {
+    left: -5px;
+}
+
+.character-select svg {
+    margin-top: 7px;
+    margin-left: 0px;
+}
+
+.modifier-title {
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.modifier-value {
+    font-size: 0.7rem;
+}

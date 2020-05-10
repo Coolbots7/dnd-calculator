@@ -1,0 +1,12 @@
+@import '../../index.scss';
+
+.character-add {
+    height: 5rem;
+    background-color: $field-color;
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.125);
+    cursor: pointer;
+}
+
+.character-add-text {
+    font-size: 1rem;
+}

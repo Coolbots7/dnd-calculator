@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Calculator.scss';
 import Button from '../Button';
 import TextBox from '../TextBox';
@@ -32,32 +33,19 @@ const Modifiers = {
     Proficiency: "PRO"
 }
 
-function getModifierValue(modifier) {
-    switch (modifier) {
-        case Modifiers.Strength:
-            return 1;
-        case Modifiers.Dexterity:
-            return 2;
-        case Modifiers.Constitution:
-            return 1;
-        case Modifiers.Intelligence:
-            return 2;
-        case Modifiers.Wisdom:
-            return 1;
-        case Modifiers.Charisma:
-            return 1;
-        case Modifiers.Proficiency:
-            return 2;
-        default:
-            return 0;
-    }
-}
-
 function rollDie(die) {
     return Math.floor(Math.random() * die) + 1;
 }
 
 class Calculator extends React.Component {
+    static propTypes = {
+        character: PropTypes.object
+    };
+
+    static defaultProps = {
+        character: null
+    };
+
     constructor(props) {
         super(props);
 
@@ -66,11 +54,42 @@ class Calculator extends React.Component {
             state: CalculatorState.EMPTY
         };
 
+        this.getModifierValue = this.getModifierValue.bind(this);
         this.onQuantityButtonClick = this.onQuantityButtonClick.bind(this);
         this.onDieButtonClick = this.onDieButtonClick.bind(this);
         this.onModifierClick = this.onModifierClick.bind(this);
         this.onRollClick = this.onRollClick.bind(this);
         this.onClearClick = this.onClearClick.bind(this);
+    }
+
+    getModifierValue(modifier) {
+        const { character } = this.props;
+
+        if (character) {
+            const modifiers = character.modifiers;
+
+            switch (modifier) {
+                case Modifiers.Strength:
+                    return modifiers.dexterity;
+                case Modifiers.Dexterity:
+                    return modifiers.strength;
+                case Modifiers.Constitution:
+                    return modifiers.constitution;
+                case Modifiers.Intelligence:
+                    return modifiers.intelligence;
+                case Modifiers.Wisdom:
+                    return modifiers.wisdom;
+                case Modifiers.Charisma:
+                    return modifiers.charisma;
+                case Modifiers.Proficiency:
+                    return modifiers.proficiency;
+                default:
+                    return 0;
+            }
+        }
+        else {
+            return 0;
+        }
     }
 
     onQuantityButtonClick(quantity) {
@@ -190,7 +209,7 @@ class Calculator extends React.Component {
 
                 }
                 else {
-                    const modifier = getModifierValue(arg);
+                    const modifier = this.getModifierValue(arg);
                     rollString += " " + modifier;
                     rollTotal += modifier;
                 }
@@ -215,6 +234,7 @@ class Calculator extends React.Component {
 
     render() {
         const { expression } = this.state;
+        const { character } = this.props;
 
         return (
             <div className="calculator">
@@ -246,24 +266,37 @@ class Calculator extends React.Component {
                     <Button text='d20' onClick={() => { this.onDieButtonClick(Die.D20); }} />
                     <Button text='d100' onClick={() => { this.onDieButtonClick(Die.D100); }} />
                 </div>
+                {character &&
+                    <>
+                        <div className="row mt-4 d-flex justify-content-center text-white">
+                            <span>{character.name}</span>
+                        </div>
+                        <div className="row mt-2 d-flex flex-row justify-content-around">
+                            {/* modifiers */}
+                            <ModifierButton modifier="STR" value={character.modifiers.strength} onClick={() => { this.onModifierClick(Modifiers.Strength); }} />
+                            <ModifierButton modifier="DEX" value={character.modifiers.dexterity} onClick={() => { this.onModifierClick(Modifiers.Dexterity); }} />
+                            <ModifierButton modifier="CON" value={character.modifiers.constitution} onClick={() => { this.onModifierClick(Modifiers.Constitution); }} />
+                            <ModifierButton modifier="INT" value={character.modifiers.intelligence} onClick={() => { this.onModifierClick(Modifiers.Intelligence); }} />
+                            <ModifierButton modifier="WIS" value={character.modifiers.wisdom} onClick={() => { this.onModifierClick(Modifiers.Wisdom); }} />
+                        </div>
+                        <div className="row mt-2 d-flex flex-row justify-content-around">
+                            {/* modifiers */}
+                            <ModifierButton modifier="CHA" value={character.modifiers.charisma} onClick={() => { this.onModifierClick(Modifiers.Charisma); }} />
+                            <ModifierButton modifier="PRO" value={character.modifiers.proficiency} onClick={() => { this.onModifierClick(Modifiers.Proficiency); }} />
+                        </div>
+                    </>
+                }
+
+                {!character &&
+                    <div className="select-character mt-4 text-center d-flex justify-content-center align-items-center">
+                        Select a Character to apply modifiers
+                    </div>
+                }
                 <div className="row mt-4 d-flex flex-row justify-content-around">
-                    {/* modifiers */}
-                    <ModifierButton modifier="STR" value="+1" onClick={() => { this.onModifierClick(Modifiers.Strength); }} />
-                    <ModifierButton modifier="DEX" value="+2" onClick={() => { this.onModifierClick(Modifiers.Dexterity); }} />
-                    <ModifierButton modifier="CON" value="+1" onClick={() => { this.onModifierClick(Modifiers.Constitution); }} />
-                    <ModifierButton modifier="INT" value="+2" onClick={() => { this.onModifierClick(Modifiers.Intelligence); }} />
-                    <ModifierButton modifier="WIS" value="+1" onClick={() => { this.onModifierClick(Modifiers.Wisdom); }} />
-                </div>
-                <div className="row mt-2 d-flex flex-row justify-content-around">
-                    {/* modifiers */}
-                    <ModifierButton modifier="CHA" value="+1" onClick={() => { this.onModifierClick(Modifiers.Charisma); }} />
-                    <ModifierButton modifier="PRO" value="+2" onClick={() => { this.onModifierClick(Modifiers.Proficiency); }} />
-                </div>
-                <div className="row mt-4 d-flex flex-row justify-content-around">
-                    <Button text="Roll" style={{height: '3rem'}} className="w-100" onClick={() => { this.onRollClick(); }} />
+                    <Button text="Roll" style={{ height: '3rem' }} className="w-100" onClick={() => { this.onRollClick(); }} />
                 </div>
                 <div className="row mt-1 d-flex flex-row justify-content-around">
-                    <Button text="Clear" style={{height: '3rem'}} className="w-100" onClick={() => { this.onClearClick(); }} />
+                    <Button text="Clear" style={{ height: '3rem' }} className="w-100" onClick={() => { this.onClearClick(); }} />
                 </div>
 
             </div>

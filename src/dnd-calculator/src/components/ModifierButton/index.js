@@ -6,7 +6,7 @@ const ModifierButton = (props) => {
     const { modifier, value, onClick } = props;
 
     return (
-        <Button text={<div className="d-flex flex-column text-center"><span>{modifier}</span><span>{value}</span></div>} onClick={onClick} />
+        <Button text={<div className="d-flex flex-column text-center"><span>{modifier}</span><span>{value > 0 ? `+${value}` : value}</span></div>} onClick={onClick} />
     );
 }
 

@@ -1,6 +1,6 @@
 $accent-color: #4ecca3;
 $background-color: #313131;
-$well-color: #525252;
+$well-color: #212121;
 $field-color: #414141;
 $border-color: #313131;
 
@@ -16,4 +16,24 @@ body {
 
 #root {
     height: 100%;
+}
+
+.modal {
+    color: #fff;
+}
+
+.modal-content {
+    background-color: $field-color;
+}
+
+.modal-header {
+    border-bottom-color: $border-color;
+}
+
+.modal-header .close {
+    color: #fff;
+}
+
+.modal-footer {
+    border-top-color: $border-color;
 }
