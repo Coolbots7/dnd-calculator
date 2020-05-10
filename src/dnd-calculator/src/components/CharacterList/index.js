@@ -56,6 +56,7 @@ class CharacterList extends React.Component {
         this.onCharacterEdited = this.onCharacterEdited.bind(this);
         this.onCharacterDeleted = this.onCharacterDeleted.bind(this);
         this.update = this.update.bind(this);
+        this.sortCharacters = this.sortCharacters.bind(this);
     }
 
     componentDidMount() {
@@ -132,12 +133,26 @@ class CharacterList extends React.Component {
         });
     }
 
+    sortCharacters(a, b) {
+        if (a.name > b.name) {
+            return -1;
+        }
+        else if (a.name < b.name) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
     render() {
         const { characters, showCharacterModal, editCharacter } = this.state;
 
+        var sortedCharacters = characters.sort(this.sortCharacters);
+
         return (
             <div className="h-100 d-flex flex-column align-items-center py-5">
-                {characters.map((character) => (
+                {sortedCharacters.map((character) => (
                     <Character key={character.name} character={character} onCharacterSelect={this.onCharacterSelectClick} onCharacterEdit={this.onCharacterEditClick} />
                 ))}
 
