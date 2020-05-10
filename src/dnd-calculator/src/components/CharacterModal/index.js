@@ -88,7 +88,8 @@ class CharacterModal extends React.Component {
                     "intelligence": form.intelligence.value,
                     "wisdom": form.wisdom.value,
                     "charisma": form.charisma.value,
-                    "proficiency": form.proficiency.value
+                    "proficiency": form.proficiency.value,
+                    "inspiration": form.inspiration.value
                 }
             };
 
@@ -234,6 +235,18 @@ class CharacterModal extends React.Component {
                                 <div className="form-group">
                                     <label>Proficiency</label>
                                     <input type="number" step="1" min="-10" max="10" className="form-control" name="proficiency" defaultValue={character ? character.modifiers.proficiency : null} required />
+                                    <div className="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        Please enter proficiency modifier.
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="form-group">
+                                    <label>Inspiration</label>
+                                    <input type="number" step="1" min="-10" max="10" className="form-control" name="inspiration" defaultValue={character ? character.modifiers.inspiration : null} required />
                                     <div className="valid-feedback">
                                         Looks good!
                                     </div>

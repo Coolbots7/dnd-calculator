@@ -34,6 +34,7 @@ const Character = (props) => {
                         <Modifier modifier="WIS" value={character.modifiers.wisdom} />
                         <Modifier modifier="CHA" value={character.modifiers.charisma} />
                         <Modifier modifier="PRO" value={character.modifiers.proficiency} />
+                        <Modifier modifier="INS" value={character.modifiers.inspiration} />
                     </div>
                 </div>
             </div>
