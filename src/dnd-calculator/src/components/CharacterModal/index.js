@@ -94,6 +94,10 @@ class CharacterModal extends React.Component {
 
             if (character) {
                 //edit
+                
+                //make sure name is not edited
+                newCharacter.name = character.name;
+                
                 if (onCharacterEdited) {
                     onCharacterEdited(character, newCharacter);
                 }
@@ -139,7 +143,7 @@ class CharacterModal extends React.Component {
                             <div className="col">
                                 <div className="form-group">
                                     <label>Name</label>
-                                    <input type="text" className="form-control" defaultValue={character ? character.name : ''} name="name" placeholder="Name your character" required />
+                                    <input type="text" className="form-control" defaultValue={character ? character.name : ''} name="name" placeholder="Name your character" required disabled={character !== null} />
                                     <div className="valid-feedback">
                                         Looks good!
                                         </div>
