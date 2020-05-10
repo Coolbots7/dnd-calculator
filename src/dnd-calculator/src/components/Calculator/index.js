@@ -189,7 +189,7 @@ class Calculator extends React.Component {
                     if (quantity === 1) {
                         const rollValue = rollDie(die);
                         rollString += " " + rollValue;
-                        rollTotal += rollValue;
+                        rollTotal += parseInt(rollValue);
                     }
                     else {
                         rollString += " (";
@@ -201,7 +201,7 @@ class Calculator extends React.Component {
 
                             const rollValue = rollDie(die);
                             rollString += rollValue;
-                            rollTotal += rollValue;
+                            rollTotal += parseInt(rollValue);
                         }
 
                         rollString += ")";
@@ -211,7 +211,7 @@ class Calculator extends React.Component {
                 else {
                     const modifier = this.getModifierValue(arg);
                     rollString += " " + modifier;
-                    rollTotal += modifier;
+                    rollTotal += parseInt(modifier);
                 }
             }
 
