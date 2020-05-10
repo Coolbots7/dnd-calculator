@@ -31,7 +31,7 @@ const Modifiers = {
     Wisdom: "WIS",
     Charisma: "CHA",
     Proficiency: "PRO",
-    Inspiration: "INS"
+    Initiative: "INI"
 }
 
 function rollDie(die) {
@@ -284,7 +284,7 @@ class Calculator extends React.Component {
                             {/* modifiers */}
                             <ModifierButton modifier="CHA" value={character.modifiers.charisma} onClick={() => { this.onModifierClick(Modifiers.Charisma); }} />
                             <ModifierButton modifier="PRO" value={character.modifiers.proficiency} onClick={() => { this.onModifierClick(Modifiers.Proficiency); }} />
-                            <ModifierButton modifier="INS" value={character.modifiers.inspiration} onClick={() => { this.onModifierClick(Modifiers.Inspiration); }} />
+                            <ModifierButton modifier="INI" value={character.modifiers.initiative} onClick={() => { this.onModifierClick(Modifiers.Initiative); }} />
                         </div>
                     </>
                 }
