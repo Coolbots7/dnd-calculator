@@ -48,7 +48,8 @@ class CharacterModal extends React.Component {
         if (character !== this.character) {
             this.character = character;
             this.setState({
-                character: character
+                character: character,
+                validated: false
             });
         }
 
