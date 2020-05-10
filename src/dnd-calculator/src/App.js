@@ -24,9 +24,9 @@ class App extends React.Component {
     const { character } = this.state;
 
     return (
-      <div className="container-fluid h-100">
+      <div className="container-fluid d-flex flex-column h-100">
 
-        <div className="row h-100">
+        <div className="row d-flex flex-fill h-auto">
           <div className="col-5 d-flex justify-content-center align-items-center">
             {/* calculator   */}
             <Calculator character={character} />
@@ -41,6 +41,15 @@ class App extends React.Component {
             <CharacterList characterSelectedCallback={this.onCharacterSelectedCallback} />
           </div>
         </div>
+
+        <footer className="footer mt-auto py-3">
+          <div className="container border-top border-dark">
+            <div className="pt-3 d-flex flex-row justify-content-around">
+              <span className="text-muted"><i className="far fa-copyright"></i> coolbots7 - {new Date().getFullYear()}</span>
+              <span className="text-muted"><i className="fab fa-github"></i> GitHub: <a href="https://github.com/Coolbots7/dnd-calculator" className="text-muted">https://github.com/Coolbots7/dnd-calculator</a></span>
+            </div>
+          </div>
+        </footer>
 
       </div>
     );
