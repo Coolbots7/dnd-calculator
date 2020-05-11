@@ -40,17 +40,17 @@ class App extends React.Component {
       <div className="container-fluid d-flex flex-column h-100">
 
         <div className="row d-flex flex-fill h-auto">
-          <div className="col-5 d-flex justify-content-center align-items-center">
+          <div className="col-sm-4 col-12 d-flex justify-content-center align-items-center">
             {/* calculator   */}
             <Calculator character={character} onRoll={this.onRollCallback} />
           </div>
 
-          <div className="col-3">
+          <div className="col-sm col-12 my-5">
             {/* history */}
             <HistoryList history={history} />
           </div>
 
-          <div className="col">
+          <div className="col-sm col-12">
             {/* characters */}
             <CharacterList characterSelectedCallback={this.onCharacterSelectedCallback} />
           </div>
