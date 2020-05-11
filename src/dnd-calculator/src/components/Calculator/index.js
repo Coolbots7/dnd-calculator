@@ -34,6 +34,11 @@ const Modifiers = {
     Initiative: "INI"
 }
 
+const SelectiveResults = {
+    DropHighest: "- H",
+    DropLowest: "- L"
+}
+
 function rollDie(die) {
     return Math.floor(Math.random() * die) + 1;
 }
@@ -59,6 +64,7 @@ class Calculator extends React.Component {
         this.onQuantityButtonClick = this.onQuantityButtonClick.bind(this);
         this.onDieButtonClick = this.onDieButtonClick.bind(this);
         this.onModifierClick = this.onModifierClick.bind(this);
+        this.onSelectiveResultsClick = this.onSelectiveResultsClick.bind(this);
         this.onRollClick = this.onRollClick.bind(this);
         this.onClearClick = this.onClearClick.bind(this);
     }
@@ -151,12 +157,26 @@ class Calculator extends React.Component {
         //check calculator state is ready for a modifier
         if (state === CalculatorState.DIE_OR_MODIFIER || state === CalculatorState.MODIFIER) {
             var newExpression = expression + " + " + modifier;
-            this.setState({
-                expression: newExpression
-            });
 
-            //Note: state remains Modifier
+            this.setState({
+                expression: newExpression,
+                state: CalculatorState.MODIFIER
+            });
         }
+    }
+
+    onSelectiveResultsClick(drop) {
+        const { state, expression } = this.state;
+
+        if (state === CalculatorState.DIE_OR_MODIFIER) {
+            var newExpression = expression + " " + drop;
+
+            this.setState({
+                expression: newExpression,
+                state: CalculatorState.DIE_OR_MODIFIER
+            });
+        }
+
     }
 
     onRollClick() {
@@ -168,7 +188,7 @@ class Calculator extends React.Component {
             expression = expression.replace(/ /g, '');
 
             //split expression into arguments on +
-            const args = expression.split("+");
+            const args = expression.split(/[+|-]/g);
 
             var rollTotal = 0;
             var rollString = "";
@@ -177,12 +197,13 @@ class Calculator extends React.Component {
             for (var i = 0; i < args.length; i++) {
                 const arg = args[i];
 
+                //Test if argument is dice roll or modifier
+                if (arg.match(/\d+d\d+/g)) {
+
                 if (i > 0) {
                     rollString += " +";
                 }
 
-                //Test if argument is dice roll or modifier
-                if (arg.match(/\d+d\d+/g)) {
                     const dieRoll = arg.split("d");
                     const quantity = parseInt(dieRoll[0]);
                     const die = parseInt(dieRoll[1]);
@@ -209,7 +230,43 @@ class Calculator extends React.Component {
                     }
 
                 }
+                //Text if argument is selective
+                else if (arg.match(/^H$|^L$/g)) {
+
+                    //get the most recent group of rolls from rollString
+                    const groups = rollString.replace(/ /g, '').match(/\(([\d|+]+)\)/g);
+
+                    //TODO a selective result could be added after a single die roll which will not be surrounded my parentheses
+                    //maybe there is something better to do than just ignoring the selective result
+                    if (groups != null && groups.length > 0) {
+                        var group = groups[groups.length - 1];
+                        group = group.replace(/[(|)]/g, '');
+
+                        //split most recent group of rolls into array
+                        const groupValues = group.split("+");
+
+                        if (arg.match(/^H$/g)) {
+                            //get hightest value from array and subtract
+                            const highestValue = Math.max(...groupValues);
+
+                            rollString += " - " + highestValue;
+                            rollTotal -= parseInt(highestValue);
+                        }
+                        else if (arg.match(/^L$/g)) {
+                            //get lowest value from array and subtract
+                            const lowestValue = Math.min(...groupValues);
+
+                            rollString += " - " + lowestValue;
+                            rollTotal -= parseInt(lowestValue);
+                        }
+                    }
+                }
                 else {
+
+                    if (i > 0) {
+                        rollString += " +";
+                    }
+
                     const modifier = this.getModifierValue(arg);
                     rollString += " " + modifier;
                     rollTotal += parseInt(modifier);
@@ -266,6 +323,11 @@ class Calculator extends React.Component {
                     {/* dice */}
                     <Button text='d20' onClick={() => { this.onDieButtonClick(Die.D20); }} />
                     <Button text='d100' onClick={() => { this.onDieButtonClick(Die.D100); }} />
+                </div>
+                <div className="row mt-4 d-flex flex-row justify-content-around">
+                    {/* selective results */}
+                    <Button text='-H' onClick={() => { this.onSelectiveResultsClick(SelectiveResults.DropHighest); }} />
+                    <Button text='-L' onClick={() => { this.onSelectiveResultsClick(SelectiveResults.DropLowest) }} />
                 </div>
                 {character &&
                     <>
