@@ -60,7 +60,10 @@ class App extends React.Component {
           <div className="container border-top border-dark">
             <div className="pt-3 d-flex flex-row justify-content-around">
               <span className="text-muted"><i className="far fa-copyright"></i> coolbots7 - {new Date().getFullYear()}</span>
-              <span className="text-muted"><i className="fab fa-github"></i> GitHub: <a href="https://github.com/Coolbots7/dnd-calculator" className="text-muted">https://github.com/Coolbots7/dnd-calculator</a></span>
+              <div className="d-flex flex-column">
+                <span className="text-muted"><i className="fab fa-github"></i> GitHub: <a href="https://github.com/Coolbots7/dnd-calculator" className="text-muted">https://github.com/Coolbots7/dnd-calculator</a></span>
+                <span className="text-muted">Dice Notation: <a href="https://en.wikipedia.org/wiki/Dice_notation" className="text-muted">https://en.wikipedia.org/wiki/Dice_notation</a></span>
+              </div>
             </div>
           </div>
         </footer>
