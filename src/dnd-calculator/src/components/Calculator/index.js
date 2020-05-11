@@ -45,7 +45,8 @@ function rollDie(die) {
 
 class Calculator extends React.Component {
     static propTypes = {
-        character: PropTypes.object
+        character: PropTypes.object,
+        onRoll: PropTypes.func
     };
 
     static defaultProps = {
@@ -181,6 +182,7 @@ class Calculator extends React.Component {
 
     onRollClick() {
         var { state, expression } = this.state;
+        const { onRoll, character } = this.props;
 
         //check state is valid for roll
         if (state === CalculatorState.DIE_OR_MODIFIER || state === CalculatorState.MODIFIER) {
@@ -274,6 +276,21 @@ class Calculator extends React.Component {
             }
 
             rollString += " = " + rollTotal;
+
+            if (onRoll) {
+
+                const historyItem = {
+                    "expression": expression,
+                    "evaluation": rollString,
+                    "rolledOn": new Date().toUTCString()
+                  };
+
+                if (character) {
+                    historyItem.character = character.name;
+                }
+
+                onRoll(historyItem);
+            }
 
             //reset expression and state
             this.setState({

@@ -2,16 +2,19 @@ import React from 'react';
 import './App.scss';
 import Calculator from './components/Calculator';
 import CharacterList from './components/CharacterList';
+import HistoryList from './components/HistoryList';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      character: null
+      character: null,
+      history: []
     }
 
     this.onCharacterSelectedCallback = this.onCharacterSelectedCallback.bind(this);
+    this.onRollCallback = this.onRollCallback.bind(this);
   }
 
   onCharacterSelectedCallback(selected_character) {
@@ -20,8 +23,18 @@ class App extends React.Component {
     });
   }
 
+  onRollCallback(historyItem) {
+    var { history } = this.state;    
+
+    history.push(historyItem);
+
+    this.setState({
+      history
+    });
+  }
+
   render() {
-    const { character } = this.state;
+    const { character, history } = this.state;
 
     return (
       <div className="container-fluid d-flex flex-column h-100">
@@ -29,11 +42,12 @@ class App extends React.Component {
         <div className="row d-flex flex-fill h-auto">
           <div className="col-5 d-flex justify-content-center align-items-center">
             {/* calculator   */}
-            <Calculator character={character} />
+            <Calculator character={character} onRoll={this.onRollCallback} />
           </div>
 
           <div className="col-3">
             {/* history */}
+            <HistoryList history={history} />
           </div>
 
           <div className="col">

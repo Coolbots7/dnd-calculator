@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.history-list-item {
+    width: 80%;
+    height: 6rem;
+    color: #fff;
+    background-color: $field-color;    
+    border: 1px solid $border-color;
+    border-radius: 0.2rem;
+    box-shadow: 0.125rem 0.25rem 0.25rem rgba(0, 0, 0, 0.125);
+}
